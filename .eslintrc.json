@@ -1,0 +1,50 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:prettier/recommended",
+    "prettier/react",
+    "prettier"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "jquery": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 11,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "no-alert": 0,
+    "no-unused-expressions": 0,
+    "no-console": 0,
+    "no-unused-vars": 0,
+    "no-dupe-args": 1,
+    "no-restricted-syntax": 0,
+    "func-names": 0,
+    "no-plusplus": 0,
+    "space-before-function-paren": 0,
+    "prefer-const": [
+      "error",
+      {
+        "destructuring": "all"
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {},
+      {
+        "usePrettierrc": true
+      }
+    ]
+  },
+  "plugins": [
+    "html",
+    "prettier",
+    "react-hooks"
+  ]
+}

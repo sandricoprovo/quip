@@ -1,0 +1,38 @@
+{
+  "name": "quip",
+  "version": "1.0.0",
+  "description": "A video queuing app for making autoplaying playlists",
+  "main": "public/javascript/app.js",
+  "scripts": {
+    "lint": "eslint . --ext .html,.js",
+    "lint:fix": "eslint . --ext .html,.js --fix",
+    "start": "electron ."
+  },
+  "keywords": [
+    "javascript",
+    "ecmascript",
+    "eslint",
+    "lint",
+    "config",
+    "prettier"
+  ],
+  "author": "Sandrico Provo",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^7.1.7",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "prettier": "^1.19.1",
+    "prettier-eslint": "^9.0.1"
+  },
+  "dependencies": {
+    "electron": "7.1.7"
+  }
+}

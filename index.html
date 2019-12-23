@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- 
+    Author: Sandrico Provo
+    Application: Qiup 
+    Date: December 2019
+   -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Security-Policy"
+    content="script-src 'self' 'unsafe-inline';" />
+  <link rel="stylesheet" href="./public/css/styles.css">
+  <title>Qiup </title>
+</head>
+
+<body>
+
+  <div id="container">
+    <h1 class="header">Qiup</h1>
+    <div id="playlist-container">
+      <div id="video-list">
+        <select name="" class="playlist"></select>
+      </div>
+    </div>
+    <div id="video-container">
+      <video id="video-player" controls type="video/mp4"></video>
+      <button id="video-btn--prev">Previous</button>
+      <button id="video-btn--next">Next</button>
+      <p>Autoplay</p>
+      <input type="radio" name="autoplay" value="yes" id="">Yes
+      <input type="radio" name="autoplay" value="no" id="" checked>No
+    </div>
+  </div>
+  <script>
+    // Global variables
+    const playlist = [];
+    let videoObject = {};
+
+    // Prevents the default action of the dragover event
+    document.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    // DOM Drop event that sets the playlist content and the first queued video
+    document.addEventListener('drop', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      // fileInfo = current file containing name, path, lastModifiedDate, webkitRelativePath
+      for (const fileInfo of e.dataTransfer.files) {
+        // Creates an object holding the video name and path, and then pushs the object to an array
+        videoObject = { vidId: `${fileInfo.name}`, vidPath: `${fileInfo.path}` };
+        playlist.push(videoObject);
+      }
+      // Sets the video on drop to be the first video shown
+      document.getElementById('video-player').src = playlist[0].vidPath;
+      // Adds all of the videos to the select dropdown
+      for (let i = 0; i < playlist.length; i++) {
+        document.querySelector('.playlist').innerHTML += `<option class="video--name" value="${playlist[i].vidPath}">${playlist[i].vidId}</option>`;
+      }
+    });
+
+    // Sets the current video to be displayed
+    document.querySelector('#video-list').addEventListener('change', () => {
+      document.getElementById('video-player').src = playlist[document.querySelector('.playlist').selectedIndex].vidPath;
+    });
+
+    // Function to play next video and set autoplay video features
+    function setNextVideo() {
+      const currentVideo = document.querySelector('.playlist').selectedIndex; // Gets current video
+      const nextVideo = currentVideo + 1; // Sets new selectedIndex
+      // Sets the currently selected video in dropdown and video source to the next video, and also sets the autoplay feature to true or false dynamically
+      const autoPlayRadio = document.querySelector('input[name="autoplay"]:checked').value;
+      try {
+        if (autoPlayRadio === 'no') {
+          document.querySelector('.playlist').selectedIndex = nextVideo;
+          document.getElementById('video-player').src = playlist[nextVideo].vidPath;
+          document.getElementById('video-player').autoplay = false; // sets autoplay to false
+        } else if (autoPlayRadio === 'yes') {
+          document.querySelector('.playlist').selectedIndex = nextVideo;
+          document.getElementById('video-player').src = playlist[nextVideo].vidPath;
+          document.getElementById('video-player').autoplay = true; // sets autoplay to true
+        }
+      } catch (error) {
+        alert("That's the end of your queue");
+      }
+    }
+    // Next button functionality using the setNextVideo
+    document.getElementById('video-btn--next').addEventListener('click', setNextVideo);
+
+    // Previous button functionality
+    document.getElementById('video-btn--prev').addEventListener('click', () => {
+      let currentVideo = document.querySelector('.playlist').selectedIndex; // Gets current video
+      // Sets previous video when all videos are complete since currentVideo = -1 when playlist has ended
+      if (currentVideo === -1) {
+        currentVideo = playlist.length - 1;
+      }
+      const prevVideo = currentVideo - 1; // Sets new selectedIndex
+      // Sets the currently selected video in dropdown and video source to the prev video, and also sets the autoplay feature to true or false dynamically
+      const autoPlayRadio = document.querySelector('input[name="autoplay"]:checked').value;
+      if (autoPlayRadio === 'no') {
+        document.querySelector('.playlist').selectedIndex = prevVideo;
+        document.getElementById('video-player').src = playlist[prevVideo].vidPath;
+        document.getElementById('video-player').autoplay = false; // sets autoplay to false
+      } else if (autoPlayRadio === 'yes') {
+        document.querySelector('.playlist').selectedIndex = prevVideo;
+        document.getElementById('video-player').src = playlist[prevVideo].vidPath;
+        document.getElementById('video-player').autoplay = true; // sets autoplay to true
+      }
+    });
+
+    // Tells the player to automatically go to the next video once the current video had ended
+    document.getElementById('video-player').addEventListener('ended', () => {
+      setNextVideo(); // Function that changes the current video
+    });
+  </script>
+</body>
+
+</html>

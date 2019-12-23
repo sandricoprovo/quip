@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+*,
+html,
+body {
+  padding: 0%;
+  margin: 0%;
+  box-sizing: border-box;
+}
+
+#video-player {
+  width: 100vw;
+  max-width: 1000px;
+  height: 50vh;
+  margin-top: 12px;
+}
+
+.playlist {
+  min-width: 400px;
+  max-width: max-content;
+}
+
+.video--name {
+  font-size: 0.6rem;
+}
