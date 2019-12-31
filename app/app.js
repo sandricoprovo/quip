@@ -8,8 +8,10 @@ function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: './build/icons/icon.png',
     webPreferences: {
       nodeIntegration: true,
+      devTools: false,
     },
   });
 

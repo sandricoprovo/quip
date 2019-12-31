@@ -1,25 +1,15 @@
 {
   "name": "quip",
   "version": "1.0.0",
+  "author": "Sandrico Provo",
   "description": "A video queuing app for making autoplaying playlists",
-  "main": "app/app.js",
+  "main": "./app/app.js",
   "scripts": {
-    "lint": "eslint . --ext .html,.js",
-    "lint:fix": "eslint . --ext .html,.js --fix",
-    "start": "electron app/.",
+    "start": "electron ./app/. --icon=build/icons/icon.png",
     "postinstall": "electron-builder install-app-deps",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
-  "keywords": [
-    "javascript",
-    "ecmascript",
-    "eslint",
-    "lint",
-    "config",
-    "prettier"
-  ],
-  "author": "Sandrico Provo",
   "license": "ISC",
   "devDependencies": {
     "electron": "^7.1.7",
@@ -38,32 +28,13 @@
   },
   "build": {
     "appId": "com.quip.app",
+    "icon": "build/icons/icon.png",
+    "productName": "Quip",
     "mac": {
       "category": "productivity"
     },
-    "dmg": {
-      "contents": [
-        {
-          "x": 110,
-          "y": 150
-        },
-        {
-          "x": 240,
-          "y": 150,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ]
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
-    },
     "win": {
-      "target": "NSIS",
-      "icon": "build/icon.ico"
+      "icon": "build/icons/icon.png"
     }
   }
 }
