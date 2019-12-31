@@ -1,4 +1,6 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu, MenuItem } = require('electron');
+
+const menu = new Menu();
 
 // Keep a global reference of the window object, if you don't, the window will be closed automatically when the JavaScript object is garbage collected.
 let win;
@@ -43,3 +45,13 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+menu.append(
+  new MenuItem({
+    label: 'Next',
+    accelerator: 'CmdOrCtrl + P',
+    click: () => {
+      console.log('time to print stuff');
+    },
+  })
+);

@@ -19,20 +19,26 @@
 <body>
 
   <div id="container">
-    <h1 class="header">Qiup</h1>
-    <div id="playlist-container">
-      <div id="video-list">
-        <select name="" class="playlist"></select>
+    <div id="video--info">
+      <h1 class="header">Qiup</h1>
+      <select name="" class="playlist" size="40"></select>
+    </div>
+
+    <div id="video--content">
+      <p class="video--title">Drag your videos here</p>
+      <video id="video-player" controls type="video/mp4"></video>
+      <div>
+        <button id="video-btn--prev">Previous</button>
+        <button id="video-btn--next">Next</button>
+      </div>
+      <p class="header-autoplay">Autoplay</p>
+      <div>
+        <input type="radio" name="autoplay" value="yes" id=""><span>Yes</span>
+        <input type="radio" name="autoplay" value="no" id=""
+          checked><span>No</span>
       </div>
     </div>
-    <div id="video-container">
-      <video id="video-player" controls type="video/mp4"></video>
-      <button id="video-btn--prev">Previous</button>
-      <button id="video-btn--next">Next</button>
-      <p>Autoplay</p>
-      <input type="radio" name="autoplay" value="yes" id="">Yes
-      <input type="radio" name="autoplay" value="no" id="" checked>No
-    </div>
+
   </div>
   <script>
     // Global variables
@@ -57,6 +63,7 @@
       }
       // Sets the video on drop to be the first video shown
       document.getElementById('video-player').src = playlist[0].vidPath;
+      document.querySelector('.video--title').innerHTML = playlist[0].vidId;
       // Adds all of the videos to the select dropdown
       for (let i = 0; i < playlist.length; i++) {
         document.querySelector('.playlist').innerHTML += `<option class="video--name" value="${playlist[i].vidPath}">${playlist[i].vidId}</option>`;
@@ -64,8 +71,18 @@
     });
 
     // Sets the current video to be displayed
-    document.querySelector('#video-list').addEventListener('change', () => {
-      document.getElementById('video-player').src = playlist[document.querySelector('.playlist').selectedIndex].vidPath;
+    document.querySelector('#video--info').addEventListener('change', () => {
+      const autoPlayRadio = document.querySelector('input[name="autoplay"]:checked').value;
+      // Sets the currently selected video in dropdown and video source to the next video, and also sets the autoplay feature to true or false dynamically
+      if (autoPlayRadio === 'no') {
+        document.getElementById('video-player').src = playlist[document.querySelector('.playlist').selectedIndex].vidPath;
+        document.querySelector('.video--title').innerHTML = playlist[document.querySelector('.playlist').selectedIndex].vidId;
+        document.getElementById('video-player').autoplay = false; // sets autoplay to false
+      } else if (autoPlayRadio === 'yes') {
+        document.getElementById('video-player').src = playlist[document.querySelector('.playlist').selectedIndex].vidPath;
+        document.querySelector('.video--title').innerHTML = playlist[document.querySelector('.playlist').selectedIndex].vidId;
+        document.getElementById('video-player').autoplay = true; // sets autoplay to true
+      }
     });
 
     // Function to play next video and set autoplay video features
@@ -78,14 +95,16 @@
         if (autoPlayRadio === 'no') {
           document.querySelector('.playlist').selectedIndex = nextVideo;
           document.getElementById('video-player').src = playlist[nextVideo].vidPath;
+          document.querySelector('.video--title').innerHTML = playlist[nextVideo].vidId;
           document.getElementById('video-player').autoplay = false; // sets autoplay to false
         } else if (autoPlayRadio === 'yes') {
           document.querySelector('.playlist').selectedIndex = nextVideo;
+          document.querySelector('.video--title').innerHTML = playlist[nextVideo].vidId;
           document.getElementById('video-player').src = playlist[nextVideo].vidPath;
           document.getElementById('video-player').autoplay = true; // sets autoplay to true
         }
       } catch (error) {
-        alert("That's the end of your queue");
+        document.querySelector('.video--title').innerHTML = "That's the end of your queue.";
       }
     }
     // Next button functionality using the setNextVideo
@@ -103,10 +122,12 @@
       const autoPlayRadio = document.querySelector('input[name="autoplay"]:checked').value;
       if (autoPlayRadio === 'no') {
         document.querySelector('.playlist').selectedIndex = prevVideo;
+        document.querySelector('.video--title').innerHTML = playlist[prevVideo].vidId;
         document.getElementById('video-player').src = playlist[prevVideo].vidPath;
         document.getElementById('video-player').autoplay = false; // sets autoplay to false
       } else if (autoPlayRadio === 'yes') {
         document.querySelector('.playlist').selectedIndex = prevVideo;
+        document.querySelector('.video--title').innerHTML = playlist[prevVideo].vidId;
         document.getElementById('video-player').src = playlist[prevVideo].vidPath;
         document.getElementById('video-player').autoplay = true; // sets autoplay to true
       }

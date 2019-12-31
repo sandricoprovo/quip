@@ -1,25 +1,153 @@
 @charset "UTF-8";
 
+@font-face {
+  font-family: 'Orkney Regular';
+  src: url('./assets/orkney-regular.otf');
+}
+
+@font-face {
+  font-family: 'Orkney Light';
+  src: url('./assets/orkney-light.otf');
+}
+
+:root {
+  --header-font: 2rem 'Orkney Regular';
+  --subhead-font: 1.2rem 'Orkney Regular';
+  --text-font: 1rem 'Orkney Light';
+}
+
 *,
 html,
 body {
-  padding: 0%;
-  margin: 0%;
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 
-#video-player {
+body {
+  background-color: #272838;
+  color: #d0d0d6;
+}
+
+#container {
   width: 100vw;
-  max-width: 1000px;
-  height: 50vh;
-  margin-top: 12px;
+  padding: 8px;
+  min-height: 100vh;
+  margin: 0px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 1fr;
+  grid-gap: 8px;
+}
+
+#video--info {
+  grid-column: 1 / 1;
+  padding-right: 4px;
+}
+
+#video--content {
+  padding-top: 8px;
+  grid-column: 2 / 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#video-player {
+  width: 64vw;
+  max-width: 1200px;
+  height: 64vh;
+  border-radius: 5px;
+}
+
+#video-player:focus,
+button:focus {
+  outline: none;
+}
+
+.header {
+  font: bold var(--header-font);
+  margin-bottom: 20px;
+}
+
+.video--title {
+  width: 64vw;
+  font: var(--subhead-font);
 }
 
 .playlist {
   min-width: 400px;
   max-width: max-content;
+  height: 40vh;
+  font: var(--text-font);
+  color: #d0d0d6;
+  border: none;
+  border-radius: 5px;
+  background-color: #2e2f3b;
+}
+
+.playlist:focus {
+  outline: none;
+}
+
+.header-autoplay {
+  margin: 20px 0px 4px 0px;
+  font: bold var(--text-font);
+}
+
+button {
+  margin-top: 8px;
+  padding: 10px 20px 10px 20px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #d0d0d6;
+  border: none;
+  font: bold var(--text-font);
+}
+
+input {
+  margin-right: 2px;
+  font: var(--text-font);
+}
+
+span {
+  font: var(--text-font);
 }
 
 .video--name {
-  font-size: 0.6rem;
+  font-size: 0.9rem;
+  padding-right: 2px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1248px) {
+  #container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #video--content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  #video--info {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .video--title {
+    text-align: center;
+  }
+
+  #video-player {
+    margin-top: 0px;
+  }
 }
