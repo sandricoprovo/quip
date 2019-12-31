@@ -38,8 +38,8 @@
     "electron": "7.1.7"
   },
   "build": {
-    "appId": "yourappid",
-    "category": "your.app.category.type",
+    "appId": "quip",
+    "category": "productivity",
     "dmg": {
       "contents": [
         {
