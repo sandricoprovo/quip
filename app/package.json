@@ -2,11 +2,11 @@
   "name": "quip",
   "version": "1.0.0",
   "description": "A video queuing app for making autoplaying playlists",
-  "main": "app/app.js",
+  "main": "app.js",
   "scripts": {
     "lint": "eslint . --ext .html,.js",
     "lint:fix": "eslint . --ext .html,.js --fix",
-    "start": "electron app/.",
+    "start": "electron .",
     "postinstall": "electron-builder install-app-deps",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
@@ -35,6 +35,9 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "prettier": "^1.19.1",
     "prettier-eslint": "^9.0.1"
+  },
+  "dependencies": {
+    "electron": "^7.1.7"
   },
   "build": {
     "appId": "com.quip.app",
